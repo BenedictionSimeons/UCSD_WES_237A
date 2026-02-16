@@ -1,18 +1,20 @@
 /*
  Author = "Alireza Khodamoradi"
+ Benediction Simeons - Removed static inline from function definitions
+ 
 */
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <fcntl.h>
 
-static inline unsigned int get_cyclecount(void){
+unsigned int get_cyclecount(void){
   unsigned int value;
   asm volatile ("MRC p15, 0, %0, c9, c13, 0\n\t" : "=r"(value));
   return value;
 }
 
-static inline void init_counters(int32_t do_reset, int32_t enable_divider){
+void init_counters(int32_t do_reset, int32_t enable_divider){
   int32_t value = 1;
   if(do_reset)
     value |= 6; // reset all counters to zero.
